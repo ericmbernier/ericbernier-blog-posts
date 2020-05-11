@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Random files from my posts
+scrape_stats/weekly_stat_example.html
