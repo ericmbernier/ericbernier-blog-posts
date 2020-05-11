@@ -130,3 +130,5 @@ dmypy.json
 
 # Random files from my posts
 scrape_stats/weekly_stat_example.html
+
+.idea/
