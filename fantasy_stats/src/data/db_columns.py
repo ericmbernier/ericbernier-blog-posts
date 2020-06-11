@@ -1,0 +1,69 @@
+"""
+db_columns.py
+This file contains constants representing the database columns
+in the players table
+"""
+
+
+COLUMN_PLAYER = "player"
+COLUMN_TEAM = "team"
+
+COLUMN_FANTASY_POSITION = "fantasy_position"
+COLUMN_AGE = "age"
+COLUMN_GAMES = "games"
+COLUMN_GAMES_STARTED = "games_started"
+COLUMN_COMPLETIONS = "completions"
+COLUMN_PASS_ATTEMPTS = "pass_attempts"
+COLUMN_PASS_YARDS = "pass_yards"
+COLUMN_PASS_TDS = "pass_tds"
+COLUMN_INTERCEPTIONS = "interceptions"
+COLUMN_RUSH_ATTEMPTS = "rush_attempts"
+COLUMN_RUSH_YARDS = "rush_yards"
+COLUMN_RUSH_YARDS_PER_ATTEMPT = "rush_yards_per_attempt"
+COLUMN_RUSH_TDS = "rush_tds"
+COLUMN_TARGETS = "targets"
+COLUMN_RECEPTIONS = "receptions"
+COLUMN_REC_YARDS = "rec_yards"
+COLUMN_YARDS_PER_RECEPTION = "yards_per_reception"
+COLUMN_REC_TDS = "rec_tds"
+COLUMN_FUMBLES = "fumbles"
+COLUMN_FUMBLES_LOST = "fumbles_lost"
+COLUMN_TOTAL_TDS = "total_tds"
+COLUMN_TWO_POINT_CON = "two_point_con"
+COLUMN_TWO_POINT_CON_PASSING = "two_point_con_passing"
+COLUMN_FANTASY_POINTS_STANDARD = "fantasy_points_standard"
+COLUMN_FANTASY_POINTS_PPR = "fantasy_points_ppr"
+COLUMN_FANTASY_POINTS_DK = "fantasy_points_dk"
+COLUMN_FANTASY_POINTS_FD = "fantasy_points_fd"
+
+CSV_HEADER_ROW = [
+    COLUMN_PLAYER,
+    COLUMN_TEAM,
+    COLUMN_FANTASY_POSITION,
+    COLUMN_AGE,
+    COLUMN_GAMES,
+    COLUMN_GAMES_STARTED,
+    COLUMN_COMPLETIONS,
+    COLUMN_PASS_ATTEMPTS,
+    COLUMN_PASS_YARDS,
+    COLUMN_PASS_TDS,
+    COLUMN_INTERCEPTIONS,
+    COLUMN_RUSH_ATTEMPTS,
+    COLUMN_RUSH_YARDS,
+    COLUMN_RUSH_YARDS_PER_ATTEMPT,
+    COLUMN_RUSH_TDS,
+    COLUMN_TARGETS,
+    COLUMN_RECEPTIONS,
+    COLUMN_REC_YARDS,
+    COLUMN_YARDS_PER_RECEPTION,
+    COLUMN_REC_TDS,
+    COLUMN_FUMBLES,
+    COLUMN_FUMBLES_LOST,
+    COLUMN_TOTAL_TDS,
+    COLUMN_TWO_POINT_CON,
+    COLUMN_TWO_POINT_CON_PASSING,
+    COLUMN_FANTASY_POINTS_STANDARD,
+    COLUMN_FANTASY_POINTS_PPR,
+    COLUMN_FANTASY_POINTS_DK,
+    COLUMN_FANTASY_POINTS_FD,
+]
