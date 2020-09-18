@@ -1,0 +1,603 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "RESTful API for accessing our Fantasy Football stats data",
+		"version": "1.0.0",
+		"title": "Fantasy Football Stats API"
+	},
+	"host": "localhost:5000",
+	"basePath": "/fantasystats",
+	"tags": [{
+			"name": "player",
+			"description": "Acess to player data"
+		},
+		{
+			"name": "season",
+			"description": "Access to season data"
+		},
+		{
+			"name": "stats",
+			"description": "Access to stats data"
+		},
+		{
+			"name": "team",
+			"description": "Access to team data"
+		}
+	],
+	"schemes": [
+		"https",
+		"http"
+	],
+	"paths": {
+		"/players": {
+			"post": {
+				"tags": [
+					"player"
+				],
+				"summary": "Adds a new Player",
+				"description": "Creates a new player.",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Player Object",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Player"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "sucessful operation",
+						"examples": {
+							"application/json": {
+								"playerId": 123
+							}
+						}
+					}
+				}
+			}
+		},
+		"/players/{playerId}": {
+			"get": {
+				"tags": [
+					"player"
+				],
+				"summary": "Gets a Player by their unique Id",
+				"description": "Retrieves a player's information, including first and last name, height, weight, jersey number, and birthdate.",
+				"parameters": [{
+					"name": "playerId",
+					"in": "path",
+					"description": "Unique player Id",
+					"required": true,
+					"type": "integer",
+					"format": "int64"
+				}],
+				"responses": {
+					"200": {
+						"description": "sucessful operation",
+						"schema": {
+							"$ref": "#/definitions/Player"
+						}
+					},
+					"400": {
+						"description": "Invalid Id supplied"
+					},
+					"404": {
+						"description": "Player not found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"player"
+				],
+				"summary": "Updates an existing Player",
+				"description": "Update an existing player's information.",
+				"parameters": [{
+						"name": "playerId",
+						"in": "path",
+						"description": "Unique player Id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Player object that needs to be updated",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Player"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"404": {
+						"description": "Player not found"
+					},
+					"500": {
+						"description": "Internal Error"
+					}
+				}
+			}
+		},
+		"/players/season/{season}": {
+			"get": {
+				"tags": [
+					"player"
+				],
+				"summary": "Gets all Players playing in a Season",
+				"description": "Gets a list of Players playing in the same Season, optionally filtered on a subset of Teams.",
+				"parameters": [{
+						"name": "season",
+						"in": "path",
+						"description": "Season Identifier, by unique year",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "teams",
+						"in": "query",
+						"description": "Team Ids to filter on.",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer"
+						},
+						"collectionFormat": "multi"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Player"
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid Id supplied"
+					},
+					"404": {
+						"description": "Team not found"
+					}
+				}
+			}
+		},
+		"/seasons": {
+			"get": {
+				"tags": [
+					"season"
+				],
+				"summary": "Gets a list of all seasons",
+				"description": "Retrieves a list of all seasons (years) stats are recorded for.",
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"examples": {
+							"application/json": [{
+									"season": 2018
+								},
+								{
+									"season": 2019
+								}
+							]
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"season"
+				],
+				"summary": "Adds a new Season",
+				"description": "Creates a new Season.",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Season Object",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Season"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"examples": {
+							"application/json": {
+								"season": 2019
+							}
+						}
+					}
+				}
+			}
+		},
+		"/stats": {
+			"post": {
+				"tags": [
+					"stats"
+				],
+				"summary": "Adds a new Stats object",
+				"description": "Creates a new Stats object, representing a Player's stats for a single Season.",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Stats Object",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Stats"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"examples": {
+							"application/json": {
+								"teamId": 3
+							}
+						}
+					}
+				}
+			}
+		},
+		"/stats/season/{season}": {
+			"get": {
+				"tags": [
+					"stats"
+				],
+				"summary": "Gets a list of stats for a single Season",
+				"description": "Retrieves a list of fantasy stats for an entire season for all Players or a filtered subset of Teams.",
+				"parameters": [{
+						"name": "season",
+						"in": "path",
+						"description": "Season Identifier by year",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "teams",
+						"in": "query",
+						"description": "Team Ids to filter on. This optional parameter allows us to filter Stats on a subset of teams.",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer"
+						},
+						"collectionFormat": "multi"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Stats"
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid Id supplied"
+					},
+					"404": {
+						"description": "Team not found"
+					}
+				}
+			}
+		},
+		"/stats/player/{playerId}": {
+			"get": {
+				"tags": [
+					"stats"
+				],
+				"summary": "Gets a Player's Stats for Seasons he has played",
+				"description": "Retrieves the list of Stats for all or a filtered subet of Seasons the Player has played.",
+				"parameters": [{
+						"name": "playerId",
+						"in": "path",
+						"description": "Unique player Id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "seasons",
+						"in": "query",
+						"description": "Seasons to filter on. This optional parameter allows us to filter on a subset of the Player's seasons.",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer"
+						},
+						"collectionFormat": "multi"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Stats"
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid Id supplied"
+					},
+					"404": {
+						"description": "Team not found"
+					}
+				}
+			}
+		},
+		"/teams": {
+			"get": {
+				"tags": [
+					"team"
+				],
+				"summary": "Gets a list of all teams",
+				"description": "Retrieves a list of all teams.",
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Team"
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"team"
+				],
+				"summary": "Adds a new Team",
+				"description": "Creates a new Team.",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Team Object",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Team"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"examples": {
+							"application/json": {
+								"teamId": 3
+							}
+						}
+					}
+				}
+			}
+		},
+		"/teams/{teamId}": {
+			"get": {
+				"tags": [
+					"team"
+				],
+				"summary": "Gets a Team by its unique Id",
+				"description": "Retrieves the team data by its unique identifier.",
+				"parameters": [{
+					"name": "teamId",
+					"in": "path",
+					"description": "Unique team Id",
+					"required": true,
+					"type": "integer",
+					"format": "int64"
+				}],
+				"responses": {
+					"200": {
+						"description": "sucessful operation",
+						"schema": {
+							"$ref": "#/definitions/Team"
+						}
+					},
+					"400": {
+						"description": "Invalid Team Id supplied"
+					},
+					"404": {
+						"description": "Team not found"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Player": {
+			"type": "object",
+			"properties": {
+				"birthdate": {
+					"type": "string",
+					"description": "Player's birthday in MM/DD/YYYY format.",
+					"example": "01/07/1997"
+				},
+				"height": {
+					"type": "string",
+					"description": "Player's height in FEET-INCHES format.",
+					"example": "6-2"
+				},
+				"name": {
+					"type": "string",
+					"description": "Player's full name, first and last.",
+					"example": "Lamar Jackson"
+				},
+				"number": {
+					"type": "string",
+					"description": "Player's jersey number.",
+					"example": "8"
+				},
+				"playerId": {
+					"type": "integer",
+					"description": "Unique identifier for the Player.",
+					"readOnly": true,
+					"example": 123
+				},
+				"position": {
+					"type": "string",
+					"enum": [
+						"QB",
+						"RB",
+						"WR",
+						"TE"
+					],
+					"description": "Player's position (QB, RB, WR, TE).",
+					"example": "QB"
+				},
+				"teamId": {
+					"type": "integer",
+					"description": "Unique identifier for the current team the Player plays for.",
+					"example": 3
+				},
+				"weight": {
+					"type": "integer",
+					"description": "Player's weight in pounds (lbs).",
+					"example": "212"
+				}
+			}
+		},
+		"Season": {
+			"type": "object",
+			"properties": {
+				"season": {
+					"type": "integer",
+					"description": "The year the season occurred (eg: 2017, 2018, 2019)",
+					"example": 2019
+				}
+			}
+		},
+		"Stats": {
+			"type": "object",
+			"properties": {
+				"statId": {
+					"type": "integer",
+					"example": 75,
+					"readOnly": true
+				},
+				"playerId": {
+					"type": "integer",
+					"example": 123
+				},
+				"season": {
+					"type": "integer",
+					"example": 2019
+				},
+				"teamId": {
+					"type": "integer",
+					"example": 5
+				},
+				"gamesPlayed": {
+					"type": "integer",
+					"example": 16
+				},
+				"gamesStarted": {
+					"type": "integer",
+					"example": 16
+				},
+				"passAttempts": {
+					"type": "integer",
+					"example": 2
+				},
+				"passYards": {
+					"type": "integer",
+					"example": 0
+				},
+				"passTds": {
+					"type": "integer",
+					"example": 0
+				},
+				"recTargets": {
+					"type": "integer",
+					"example": 142
+				},
+				"recReceptions": {
+					"type": "integer",
+					"example": 116
+				},
+				"recYards": {
+					"type": "integer",
+					"example": 1005
+				},
+				"recTds": {
+					"type": "integer",
+					"example": 4
+				},
+				"rushAttempts": {
+					"type": "integer",
+					"example": 287
+				},
+				"rushYards": {
+					"type": "integer",
+					"example": 1387
+				},
+				"rushTds": {
+					"type": "integer",
+					"example": 15
+				},
+				"fumbles": {
+					"type": "integer",
+					"example": 1
+				},
+				"fumblesLost": {
+					"type": "integer",
+					"example": 0
+				},
+				"twoPointConversions": {
+					"type": "integer",
+					"example": 1
+				},
+				"twoPointConversionsPass": {
+					"type": "integer",
+					"example": 0
+				},
+				"fantasyPointsPpr": {
+					"type": "number",
+					"example": 471.2
+				}
+			}
+		},
+		"Team": {
+			"type": "object",
+			"required": [
+				"abbreviation, city, name"
+			],
+			"properties": {
+				"abbreviation": {
+					"type": "string",
+					"description": "Unique team abbreviation, two-three characters in length",
+					"example": "BAL"
+				},
+				"city": {
+					"type": "string",
+					"description": "City the team represents / plays in",
+					"example": "Baltimore"
+				},
+				"name": {
+					"type": "string",
+					"description": "Team name, or mascot, such as the Ravens, Chiefs, etc.",
+					"example": "Ravens"
+				},
+				"teamId": {
+					"type": "integer",
+					"description": "Unique identifier for the Team.",
+					"readOnly": true,
+					"example": 3
+				}
+			}
+		}
+	}
+}
