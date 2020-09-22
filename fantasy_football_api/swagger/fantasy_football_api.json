@@ -47,7 +47,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "sucessful operation",
+						"description": "successful operation",
 						"examples": {
 							"application/json": {
 								"playerId": 123
@@ -74,7 +74,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "sucessful operation",
+						"description": "successful operation",
 						"schema": {
 							"$ref": "#/definitions/Player"
 						}
@@ -402,7 +402,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "sucessful operation",
+						"description": "successful operation",
 						"schema": {
 							"$ref": "#/definitions/Team"
 						}
