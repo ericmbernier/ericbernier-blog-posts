@@ -49,6 +49,14 @@ class StatsResource(Resource):
 
 class StatsPlayerResource(Resource):
     def get(self, player_id):
+        """
+        StatsPlayerResource GET method
+
+        Retrieves stats for an individual player, for a provided player_id
+
+        :param player_id: Path parameter, id of the player
+        :return: Player Stats
+        """
         logger.info(f"Retrieving stats for individual player, player_id={player_id}.")
 
         player_stats = Stats.query.filter_by(player_id=player_id).all()
@@ -61,6 +69,14 @@ class StatsPlayerResource(Resource):
 
 class StatsSeasonResource(Resource):
     def get(self, season):
+        """
+        StatsSeasonResource GET method
+
+        Retrieves all stats for a given Season
+
+        :param season: Path parameter, season to get stats for
+        :return: List of Stats for Season
+        """
         logger.info(f"Retrieving stats for entire season={season}")
 
         season_stats = Stats.query.filter_by(season=season).all()
