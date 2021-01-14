@@ -14,7 +14,6 @@ flask = "==1.1.2"
 flask-restful = "==0.3.8"
 flask-sqlalchemy = "==2.4.4"
 marshmallow = "==3.9.1"
-requests = "==2.23.0"
 
 [requires]
 python_version = "3.8"
