@@ -44,8 +44,8 @@ def parse_fanduel_entry(csv_entry_row):
         contest_date=datetime.strptime(
             csv_entry_row[FANDUEL_DATE_COLUMN], "%Y/%m/%d"
         ).date(),
-        entry_fee=convert_currency_to_decimal(csv_entry_row[FANDUEL_ENTRY_FEE_COLUMN]),
-        winnings=convert_currency_to_decimal(csv_entry_row[FANDUEL_WINNINGS_COLUMN]),
+        entry_fee=_convert_currency_to_decimal(csv_entry_row[FANDUEL_ENTRY_FEE_COLUMN]),
+        winnings=_convert_currency_to_decimal(csv_entry_row[FANDUEL_WINNINGS_COLUMN]),
     )
 
 
@@ -57,12 +57,12 @@ def parse_draftkings_entry(csv_entry_row):
         contest_date=datetime.strptime(
             csv_entry_row[DRAFTKINGS_CONTEST_DATE_COLUMN], "%Y-%m-%d %H:%M:%S"
         ).date(),
-        entry_fee=convert_currency_to_decimal(
+        entry_fee=_convert_currency_to_decimal(
             csv_entry_row[DRAFTKINGS_ENTRY_FEE_COLUMN]
         ),
-        winnings=convert_currency_to_decimal(csv_entry_row[DRAFTKINGS_WINNINGS_COLUMN]),
+        winnings=_convert_currency_to_decimal(csv_entry_row[DRAFTKINGS_WINNINGS_COLUMN]),
     )
 
 
-def convert_currency_to_decimal(currency_val):
+def _convert_currency_to_decimal(currency_val):
     return Decimal(sub(r"[^\d.]", "", currency_val))
