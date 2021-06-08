@@ -28,7 +28,9 @@ def generate_player_stack(db_players):
     player_adps = [player.adp for player in players]
     average_adp = statistics.mean(player_adps)
     median_adp = statistics.median(player_adps)
-    projected_points_per_weak = sum(player.projected_points for player in players) / NUM_GAMES
+    projected_points_per_weak = (
+        sum(player.projected_points for player in players) / NUM_GAMES
+    )
 
     player_stack = {
         "players": players,

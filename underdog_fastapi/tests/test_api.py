@@ -7,24 +7,21 @@ client = TestClient(app)
 
 
 def test_get_player():
-    response = client.get("/players/1")
+    response = client.get("/api/players/1")
     assert response.status_code == 200
 
 
 def test_get_players_by_team():
-    response = client.get("/players/teams/ARI")
+    response = client.get("/api/players/teams/ARI")
     assert response.status_code == 200
 
 
 def test_get_player_stack():
-    # TODO: Test every stack
     for team in TEAM_NAME_TO_ABBREV.values():
-        response = client.get(f"/stacks/{team}")
+        response = client.get(f"/api/stacks/{team}")
         assert response.status_code == 200
 
 
 def test_get_all_player_stacks():
-    response = client.get("/stacks")
+    response = client.get("/api/stacks")
     assert response.status_code == 200
-
-

@@ -4,8 +4,8 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
-from underdog_fastapi.api import crud, models, schemas
-from underdog_fastapi.database import engine, get_db, create_database
+from underdog_fastapi.api import crud, schemas
+from underdog_fastapi.database import get_db, create_database
 from underdog_fastapi.underdog.team import Team
 
 logging.basicConfig(
@@ -16,12 +16,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-models.Base.metadata.create_all(bind=engine)
 create_database()
 app = FastAPI()
 
 
-@app.get("/players/{player_id}", response_model=schemas.Player)
+@app.get("/api/players/{player_id}", response_model=schemas.Player)
 def get_player(player_id: int, db: Session = Depends(get_db)):
     logger.info(f"Retrieving player by id {id}.")
     player = crud.get_player(db, player_id=player_id)
@@ -34,7 +33,7 @@ def get_player(player_id: int, db: Session = Depends(get_db)):
     return player
 
 
-@app.get("/players/teams/{team}", response_model=List[schemas.Player])
+@app.get("/api/players/teams/{team}", response_model=List[schemas.Player])
 def get_player(team: str, db: Session = Depends(get_db)):
     logger.info(f"Retrieving players for team {team}.")
     players = crud.get_players_by_team(db, team=Team(team))
@@ -47,7 +46,7 @@ def get_player(team: str, db: Session = Depends(get_db)):
     return players
 
 
-@app.get("/stacks/{team}", response_model=schemas.PlayerStack)
+@app.get("/api/stacks/{team}", response_model=schemas.PlayerStack)
 def get_player_stack(team: str, db: Session = Depends(get_db)):
     logger.info(f"Retrieving player stack for team {team}.")
     player_stack = crud.get_player_stack_by_team(db, team=Team(team))
@@ -62,7 +61,7 @@ def get_player_stack(team: str, db: Session = Depends(get_db)):
     return player_stack
 
 
-@app.get("/stacks/", response_model=List[schemas.PlayerStack])
+@app.get("/api/stacks/", response_model=List[schemas.PlayerStack])
 def get_player_stack(db: Session = Depends(get_db)):
     logger.info(f"Retrieving all player stacks")
     player_stacks = crud.get_all_player_stacks(db)
