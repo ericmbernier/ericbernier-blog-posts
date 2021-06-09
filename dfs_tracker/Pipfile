@@ -4,10 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "==20.8b1"
+black = "==21.5b2"
 
 [packages]
 plotly = "==4.14.3"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
