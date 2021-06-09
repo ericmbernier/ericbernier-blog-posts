@@ -39,4 +39,3 @@ def test_get_single_player(client):
 def test_get_single_player_not_found(client):
     response = client.get("/api/players/16")
     assert response.status_code == 404
-
