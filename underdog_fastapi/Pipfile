@@ -11,7 +11,7 @@ pytest-sugar = "==0.9.4"
 requests = "==2.25.1"
 
 [packages]
-fastapi = "==0.65.1"
+fastapi = "==0.65.2"
 pandas = "==1.2.4"
 sqlalchemy = "==1.4.16"
 uvicorn = "==0.13.4"
