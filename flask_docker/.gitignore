@@ -132,5 +132,3 @@ dmypy.json
 scrape_stats/weekly_stat_example.html
 
 .idea/
-
-.DS_STORE

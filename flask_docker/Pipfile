@@ -1,0 +1,15 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+flask = "==2.1.1"
+flask-sqlalchemy = "==2.5.1"
+gunicorn = "==20.1.0"
+redis = "==4.2.2"
+sqlalchemy = "==1.4.35"
+werkzeug = "==2.1.1"
+
+[requires]
+python_version = "3.10"
