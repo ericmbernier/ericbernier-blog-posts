@@ -12,9 +12,9 @@ requests = "==2.25.1"
 
 [packages]
 fastapi = "==0.65.2"
-pandas = "==1.2.4"
+pandas = "==1.4.3"
 sqlalchemy = "==1.4.16"
 uvicorn = "==0.13.4"
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"
