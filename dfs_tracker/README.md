@@ -14,7 +14,7 @@ pipenv shell
 Once your virtualenv has been activated run the command-line interface built in this post via the following command:
 
 ```bash
-python dfs_tracker/tracker.py --files=dfs_data/
+python dfs_tracker/tracker.py --files=csv_data/
 ```
 
 ##### Formatting
