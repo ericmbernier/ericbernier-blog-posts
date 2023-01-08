@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container d-flex justify-content-center mt-4">
+  <h3>Gotta Catch 'Em All!</h3>
+</div>
+
+<div class="container d-flex-col justify-content-center align-items-center w-50">
+  <label for="exampleFormControlInput1">Pokemon Name:</label>
+  <input
+    type="text"
+    id="pokemonName"
+    class="form-control mt-2"
+    placeholder="Enter the name of the Pokemon you want to catch. Eg: charmander"
+  />
+  <button
+    id="catchEmButton"
+    type="submit"
+    class="btn btn-primary mt-2"
+    onclick="catchPokemon(pokemonName.value)"
+  >
+    Catch 'em!
+  </button>
+</div>
+
+<div id="pokemonSpriteContainer" class="container d-flex justify-content-center mt-4">
+  <img id="pokemonSprite" class="d-none" src="" alt="Pokemon!" />
+  <label id="warningLabel" class="d-none text-danger"></label>
+</div>
+
+{% endblock %}

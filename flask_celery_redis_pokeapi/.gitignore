@@ -1,0 +1,5 @@
+.coverage
+results.db
+*.log
+
+flask_celery_redis/static/pokemon/*.png

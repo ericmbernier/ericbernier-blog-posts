@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:7.0.6
+    platform: linux/amd64
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis:/data"
+  flask_celery_redis:
+    build:
+      context: "."
+      dockerfile: docker/flask_celery_redis/Dockerfile
+    depends_on:
+      - "redis"
+    platform: linux/amd64
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/flask_celery_redis
+    command: >
+      gunicorn -c "python:config.gunicorn" --reload "flask_celery_redis.app:create_app()"
+  celery_worker:
+    build:
+      context: "."
+      dockerfile: docker/flask_celery_redis/Dockerfile
+    depends_on:
+      - "redis"
+    platform: linux/amd64
+    
+    volumes:
+      - .:/flask_celery_redis
+    command: >
+      celery --app flask_celery_redis.celery.celery_app worker --loglevel "${CELERY_LOG_LEVEL:-INFO}"
+volumes:
+  redis: {}
